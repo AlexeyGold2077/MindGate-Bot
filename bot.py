@@ -1,7 +1,8 @@
 import telebot
 import mindgate_pywrapper
+import _private
 
-bot = telebot.TeleBot("7150230176:AAFr7PRwQvSH7Dkxc3PiXj9X0z1lK1GV2cY")
+bot = telebot.TeleBot(_private.TOKEN)
 
 system_message = "Be brief"
 
