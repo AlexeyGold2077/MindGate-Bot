@@ -1,6 +1,6 @@
 import requests
 
-api_base_url = "http://localhost:8080"
+api_base_url = "http://172.17.0.1:8080"
 
 
 def sendMessageAsUser(user_id, message):
