@@ -18,7 +18,6 @@ def command_reset(message):
     mindgate_pywrapper.clearMessages(message.chat.id)
     mindgate_pywrapper.sendMessageAsSystem(message.chat.id, SYSTEM_MESSAGE)
     bot.send_message(message.chat.id, "🫨 Память сброшена!")
-    bot.reply_to(message, '🤙 Привет! Я ваш AI помощник. Чем могу помочь?')
 
 
 @bot.message_handler(commands=['model'])
@@ -29,14 +28,13 @@ def command_model(message):
 
 @bot.message_handler(content_types=['text'])
 def respond_to_text(message):
+
+    mindgate_pywrapper.addBalance(message.chat.id, 10000)
+    print(mindgate_pywrapper.getBalance(message.chat.id))
+
     user_message = message.text
     response = mindgate_pywrapper.sendMessageAsUser(message.chat.id, f'{user_message}')
-    bot.send_message(message.chat.id,
-                     response["message"] + f'\n\n⛽️ {response["total_tokens"]}',
-                     parse_mode="Markdown")
-
-    print(response["total_tokens"], response["prompt_tokens"], response["completion_tokens"])
-
+    bot.send_message(message.chat.id,response["message"] + f'\n\n⛽️ {response["spent_tokens"]}', parse_mode="Markdown")
     print("\n\nid - " + str(message.chat.id))
     print("username - " + str(message.from_user.username))
     print("user - " + user_message)
